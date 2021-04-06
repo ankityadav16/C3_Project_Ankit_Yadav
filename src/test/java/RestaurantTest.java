@@ -63,6 +63,32 @@ class RestaurantTest {
         assertThrows(itemNotFoundException.class, ()->restaurant.removeFromMenu("French fries"));
     }
 
+    @Test
+    public void total_oder_price_of_item__should_return_true_when_same_price_match() {
+
+        LocalTime openingTime = LocalTime.parse("10:30:00");
+        LocalTime closingTime = LocalTime.parse("22:00:00");
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup", 1000);
+        restaurant.addToMenu("Vegetable lasagne", 500);
+        int Total = restaurant.getTotalOrderPrice(restaurant.getMenu());
+        assertEquals(Total,1500);
+    }
+
+
+    @Test
+    public void total_oder_price_of_item__should_return_false_when_same_price_match() {
+
+        LocalTime openingTime = LocalTime.parse("10:30:00");
+        LocalTime closingTime = LocalTime.parse("22:00:00");
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup", 100);
+        restaurant.addToMenu("Vegetable lasagne", 1450);
+        int Total = restaurant.getTotalOrderPrice(restaurant.getMenu());
+        assertNotEquals(Total,500);
+    }
+
+
 
 
 
